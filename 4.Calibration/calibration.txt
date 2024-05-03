@@ -1,0 +1,36 @@
+calibration du capteur intra-bec, MAD Dynamique
+
+NB : 100 mbar = 100 hPa = 1,45 psi
+
+ref capteur en pression pour l'intérieur du bec :
+	modèle 8507c-5 (veut dire qu'il peut mesurer jusqu'a 5 psig - 60 mV/psi)
+	n° série 11541
+On définit un gain de 10 
+cannal 3 conditionneur AMPB126
+	8.41 e-
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Calibration du capteur de force, banc statique
+	modèle LCM703-5
+	n° série 737132
+	cannal 2 conditionneur AMPB126
+	gain 100
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Calibration du capteur de force MAD statique 
+	modèle LCM703-5
+	n° série 
+	cannal 1 conditionneur AMPB126
+	gain 10
+	sensibilite 2.75 e-3
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+micro exterieur
+	Bruël 1 Kjaer
+	Type 2669
+	N° 2024962
+	capsule 2559 | 2398
+	gain 20dB => 10?
+	129.5 mV (RMS)
+	sensibilité 13mV/Pa

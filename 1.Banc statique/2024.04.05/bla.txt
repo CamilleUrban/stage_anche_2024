@@ -1,0 +1,2 @@
+anche 1 = force 3
+anche 2 = force 1

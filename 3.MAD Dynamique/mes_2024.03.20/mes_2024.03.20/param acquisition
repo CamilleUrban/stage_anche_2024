@@ -1,0 +1,19 @@
+Chanel	Grandeur			
+A	Force(capteur force)	
+B	Deplacement(laser)	
+C	P_m(micro bec)
+D	P_ext(micro exterieur)	
+
+
+Echantillonnage
+1 s/div
+100 kS
+10 kS/S
+
+Résolution
+8 bits (possibilité 12 ou 14)
+
+Voie A +/-100mV
+Voie B +/-200mV
+Voie C +/-20V
+Voie D +/-500mV
