@@ -1,0 +1,10 @@
+Channel ampli : 3 
+Channel_pico : A
+Range : 1 V 
+Gain : 100 V 
+Sensibilite capteur de force :  0.04026 
+pour un gain de 100 en V/N 
+Gain : -13.606982634968148 
+Position initale de la mollette horizontale : 9 mm 
+Pas de déplcament : 0.25 mm 
+Distance à la pointe de l'anche : 3 mm -> position mollette verticale : 3.5 mm
