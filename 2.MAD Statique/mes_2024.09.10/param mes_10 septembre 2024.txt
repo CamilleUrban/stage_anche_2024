@@ -1,0 +1,11 @@
+Channel ampli : 3 
+Channel_pico : A
+Range : 5 V 
+Gain : 900 
+Offset : 31.837519455549785 mV 
+Sensibilite capteur de force :  0.04026 N/mV
+pour un gain de 100 en V/N 
+Sensibilite capteur de la caméra :  88.0 pix/mm 
+Position initale de la mollette horizontale : 9 mm 
+Pas de déplcament : 0.25 mm 
+Distance à la pointe de l'anche : 3 mm -> position mollette verticale : 3.5 mm
