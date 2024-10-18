@@ -125,7 +125,6 @@ def calcul_pentes_et_origines(position_y, position_z, force):
     pentes = [] # initialisation du vecteur contenant les pentes
     ordos_origine = []
     deb = np.where(force > 0.2*max(force))[0][0] # indice du début de la zone d'intérêt : pour être certain.e que l'on est dans la partie linéaire, qu'on considère comme 20% de la valeur max
-    
     for m in (np.unique(position_y, return_counts=True)[0]) :  # boucle selectionnant chaque valeur différente de position y
         y  = position_y == m 
         z = position_z[y]
@@ -163,6 +162,7 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
     # coefficient de régression R2
     poly = PolynomialFeatures(degree=2)
     poly_y = poly.fit_transform(np.array(pos_y).reshape(-1,1))
+    linspace_posy = np.linspace(pos_y[0], pos_y[-1], num=100)
     pentes = np.array(pentes)
     reg_model = LinearRegression().fit(poly_y, pentes)
     R2 = reg_model.score(poly_y, pentes)# R2 is defined as (1-u/v), where u is the residual sum of squares ((y_true - y_pred)** 2).sum() and 
@@ -176,7 +176,7 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
         axs1.set_xlabel('Coordonnée y (mm)', fontsize=16)
         axs1.set_ylabel('Raideur $k=F/z$ (N/mm)', fontsize=16)
         axs1.plot(pos_y, pentes, '.', color='cornflowerblue', label='données expérimentales (pentes)')
-        axs1.plot(pos_y, np.polyval(coef, pos_y), linestyle='-', lw='2.5', color='darkblue',
+        axs1.plot(linspace_posy, np.polyval(coef, linspace_posy), linestyle='-', lw='2.5', color='darkblue',
                 label=f'z = {round(K0,3)}{round(K1,3)}(x{round(x0,3)})²')
         axs1.grid()
 
@@ -187,7 +187,7 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
         # axs2.plot(pos_y, np.polyval(coef_origine, pos_y), linestyle='-', lw='2.5', color='darkred',
         #         label=f'z = {round(coef_origine_cano[0],3)}{round(coef_origine_cano[1],3)}(x{-round(coef_origine_cano[2],3)})²')
         axs2.plot(pos_y, -np.array(ordos_origine), '.', color='coral', label='données expérimentales (ordos origine)')
-        axs2.plot(pos_y, -np.polyval(coef_origine, pos_y), linestyle='-', lw='2.5', color='darkred',
+        axs2.plot(linspace_posy, -np.polyval(coef_origine, linspace_posy), linestyle='-', lw='2.5', color='darkred',
                 label=f'z = {-round(coef_origine_cano[0],3)}{-round(coef_origine_cano[1],3)}(x{round(coef_origine_cano[2],3)})²')
         axs2.grid()
         
@@ -225,7 +225,7 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
         axs0.grid()
 
         axs1.set_title('Profil de raideur')
-        axs1.plot(pos_y, np.polyval(coef, pos_y), linestyle='-', lw='2', color='orange', label=f'z = {round(K0,3)}{round(K1,3)}(x{round(x0,3)})²')   # {coef[0]:.2f}x² + {coef[1]:.2f}x + {coef[2]:.2f} \nR² = {round(R2, 3)}
+        axs1.plot(linspace_posy, np.polyval(coef, linspace_posy), linestyle='-', lw='2', color='orange', label=f'z = {round(K0,3)}{round(K1,3)}(x{round(x0,3)})²')   # {coef[0]:.2f}x² + {coef[1]:.2f}x + {coef[2]:.2f} \nR² = {round(R2, 3)}
         axs1.set_xlabel('Coordonnée y (mm)', fontsize=14)
         axs1.set_ylabel('Raideur $k=F/z$ (N/mm)', fontsize=14)
         axs1.legend(loc='lower center')
@@ -236,14 +236,14 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
         axs2.set_ylabel('Force (N)', fontsize=14)
         # axs2.plot(pos_y, np.polyval(coef_origine, pos_y), linestyle='-', lw='2.5', color='darkred',
         #         label=f'z = {round(coef_origine_cano[0],3)}{round(coef_origine_cano[1],3)}(x{-round(coef_origine_cano[2],3)})²')
-        axs2.plot(pos_y, np.polyval(coef_origine, pos_y), linestyle='-', lw='2', color='olivedrab',
+        axs2.plot(linspace_posy, np.polyval(coef_origine, linspace_posy), linestyle='-', lw='2', color='olivedrab',
                 label=f'z = {round(coef_origine_cano[0],3)}{round(coef_origine_cano[1],3)}(x{round(coef_origine_cano[2],3)})²')
         axs2.legend(loc='lower center')
         axs2.grid()
 
-        fig.suptitle(f'Raideur par Banc Statique Anche N° {numero_anche} (nbr_points : {len(pos_y) * len(np.unique(position_z))})', fontsize=16) # Ajouter un titre global
+        # fig.suptitle(f'Raideur par Banc Statique Anche N° {numero_anche} (nbr_points : {len(pos_y) * len(np.unique(position_z))})', fontsize=16) # Ajouter un titre global
         plt.tight_layout(rect=[0, 0, 1, 0.95]) # Utilisation de tight_layout pour ajuster l'espace
     
-    return coef_cano, coef_origine_cano, R2
+    return coef_cano, coef_origine_cano, R2, pos_y, coef, coef_origine
 
 #---------------------------------------------------------------------------------------------------------------------------- 

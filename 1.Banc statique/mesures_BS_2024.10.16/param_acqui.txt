@@ -1,0 +1,11 @@
+Sensibilite camera : 100.0 pix/mm 
+Sensibilité capteur force : 285 mV/N 
+Gain qualibration = 100 et gain de mesure = 900 
+Channel ampli : 1 
+Channel_picoscope : A 
+Température : 23.5 
+Hygrométrie : 49 
+ 
+distance à la pointe de l'anche : 3 
+nombre de point sur une largeur d'anche (suivant y): 9, pas horizontal suivant y : 8328 
+nombre de points suivant z : 3, pas horizontal suivant z : 2274
