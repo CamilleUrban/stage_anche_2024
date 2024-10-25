@@ -147,6 +147,9 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
     pos_y = np.unique(position_y)
     pentes, ordos_origine, deb = calcul_pentes_et_origines(position_y, position_z, Force)
     
+    # delta K 
+    Delta_K = pentes[-1] - pentes[0]
+    
     # Profil de raideur (coefs a)
     coef = np.polyfit(np.unique(pos_y), pentes, 2) # forme développée
     coef_cano = polynome_forme_canonique(coef) # forme canonique {K0}-{K1}(x-{x0})**2
@@ -210,7 +213,7 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
             F = Force[y]
             coefficients = np.polyfit(z[deb:], F[deb:], 1)
             axs0.plot(z, F, '.', label=f'y = {m} mm', color=couleur)
-            axs0.plot(z[deb:], np.polyval(coefficients, z[deb:]), linestyle='-', color=couleur, label=f'z = {np.round(coefficients[0], 2)}x + {np.round(coefficients[1], 2)}')
+            axs0.plot(z[deb:], np.polyval(coefficients, z[deb:]), linestyle='-', color=couleur, label=f'f(z) = {np.round(coefficients[0], 2)}z {np.round(coefficients[1], 2)}')
             # pente = coefficients[0]
             # pente = round(pente, 2)
             axs1.plot(m, pentes[idx], '.', color=couleur)
@@ -218,16 +221,16 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
             axs2.plot(m, np.array(ordos_origine)[idx], '.', color=couleur)
     
 
-        axs0.set_title(f'Force mesurée en fonction de la postion z \npour différents point y')
+        axs0.set_title(f'Force mesurée en fonction de la postion z \npour différents point sur la largeur de l\'anche (y)')
         axs0.legend(bbox_to_anchor=(-0.5, 0.5), loc='center left', fontsize=10, borderaxespad=0)
         axs0.set_xlabel('Coordonnée z (mm)', fontsize=14)
-        axs0.set_ylabel('Force (N)', fontsize=14)
+        axs0.set_ylabel('Force f(N)', fontsize=14)
         axs0.grid()
 
         axs1.set_title('Profil de raideur')
-        axs1.plot(linspace_posy, np.polyval(coef, linspace_posy), linestyle='-', lw='2', color='orange', label=f'z = {round(K0,3)}{round(K1,3)}(x{round(x0,3)})²')   # {coef[0]:.2f}x² + {coef[1]:.2f}x + {coef[2]:.2f} \nR² = {round(R2, 3)}
+        axs1.plot(linspace_posy, np.polyval(coef, linspace_posy), linestyle='-', lw='2', color='orange', label=f'K(y) = {round(K0,3)}{round(K1,3)}(y{round(x0,3)})² \n $\Delta$k = {round(Delta_K,3)}')   # {coef[0]:.2f}x² + {coef[1]:.2f}x + {coef[2]:.2f} \nR² = {round(R2, 3)}
         axs1.set_xlabel('Coordonnée y (mm)', fontsize=14)
-        axs1.set_ylabel('Raideur $k=F/z$ (N/mm)', fontsize=14)
+        axs1.set_ylabel('Raideur $k=f/z$ (N/mm)', fontsize=14)
         axs1.legend(loc='lower center')
         axs1.grid()
         
@@ -237,13 +240,14 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
         # axs2.plot(pos_y, np.polyval(coef_origine, pos_y), linestyle='-', lw='2.5', color='darkred',
         #         label=f'z = {round(coef_origine_cano[0],3)}{round(coef_origine_cano[1],3)}(x{-round(coef_origine_cano[2],3)})²')
         axs2.plot(linspace_posy, np.polyval(coef_origine, linspace_posy), linestyle='-', lw='2', color='olivedrab',
-                label=f'z = {round(coef_origine_cano[0],3)}{round(coef_origine_cano[1],3)}(x{round(coef_origine_cano[2],3)})²')
-        axs2.legend(loc='lower center')
+                label=f'$F_0(y)$ = {round(coef_origine_cano[0],3)}+{round(coef_origine_cano[1],3)}(y{round(coef_origine_cano[2],3)})²')
+        axs2.legend(loc='upper center')
         axs2.grid()
+
 
         # fig.suptitle(f'Raideur par Banc Statique Anche N° {numero_anche} (nbr_points : {len(pos_y) * len(np.unique(position_z))})', fontsize=16) # Ajouter un titre global
         plt.tight_layout(rect=[0, 0, 1, 0.95]) # Utilisation de tight_layout pour ajuster l'espace
     
-    return coef_cano, coef_origine_cano, R2, pos_y, coef, coef_origine
+    return coef_cano, coef_origine_cano, Delta_K, R2, pos_y, coef, coef_origine
 
 #---------------------------------------------------------------------------------------------------------------------------- 
