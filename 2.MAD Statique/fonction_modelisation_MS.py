@@ -89,20 +89,21 @@ def identification_modele(force, S_ouverture, numero_anche, c=['#2eb1d5', '#1d23
     ST = caracNL_BG(pgt, surface, pression, coude, fuite)
     
     if plot_figure : 
-        plt.plot(force, S_ouverture, '+', lw=6, color=c[1], label=f'Données expérimentales {numero_anche}')
-        plt.plot(pgt, ST, '--', lw=2, color=c[0], label=f'Modèle ajusté {numero_anche}')
+        plt.plot(force, S_ouverture, '+', lw=6, color=c[1], label=f'Anche {numero_anche}')
+        plt.plot(pgt, ST, lw=2, color=c[0], label=f'Modèle {numero_anche}')
+
         
         # Affichage des traits de coustruction du modèle 
-        # plt.plot(0, Paramopt[0], '+r', lw=6)
-        # plt.plot(Paramopt[1], 0, '+r', lw=6)
-        # plt.plot([Paramopt[1], 0], [0, Paramopt[0]], '-.r', lw=1)
-        # plt.plot(Paramopt[1] + Paramopt[2], 0, '+g', lw=6)
-        # plt.plot(Paramopt[1] - Paramopt[2], 0, '+g', lw=6)
-        # plt.plot(0, Paramopt[3], '+b', lw=6)
-        # plt.plot([0, 6], [Paramopt[3], Paramopt[3]], ':b', lw=1)
-        # limit = np.linspace(0, 14, 100)
-        # plt.plot((Paramopt[1] + Paramopt[2]) * np.ones_like(limit), limit, '--g', lw =1)
-        # plt.plot((Paramopt[1] - Paramopt[2]) * np.ones_like(limit), limit, '--g', lw =1)
+        plt.plot(0, Paramopt[0], '+r', lw=6)
+        plt.plot(Paramopt[1], 0, '+r', lw=6)
+        plt.plot([Paramopt[1], 0], [0, Paramopt[0]], '-.r', lw=1)
+        plt.plot(Paramopt[1] + Paramopt[2], 0, '+g', lw=6)
+        plt.plot(Paramopt[1] - Paramopt[2], 0, '+g', lw=6)
+        plt.plot(0, Paramopt[3], '+b', lw=6)
+        plt.plot([0, 6], [Paramopt[3], Paramopt[3]], ':b', lw=1)
+        limit = np.linspace(0, 14, 100)
+        plt.plot((Paramopt[1] + Paramopt[2]) * np.ones_like(limit), limit, '--g', lw =1)
+        plt.plot((Paramopt[1] - Paramopt[2]) * np.ones_like(limit), limit, '--g', lw =1)
         
         plt.xlabel('force (N)', fontsize=12)
         plt.ylabel('Section d\'ouverture (mm²)', fontsize=12)

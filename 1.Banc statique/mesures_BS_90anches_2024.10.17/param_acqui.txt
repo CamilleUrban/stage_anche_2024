@@ -1,4 +1,4 @@
-Sensibilite camera : 100.125 pix/mm 
+Sensibilite camera : 100.875 pix/mm 
 Sensibilité capteur force : 40.26 mV/N 
 Gain qualibration = 100 et gain de mesure = 900 
 Channel ampli : 1 
@@ -7,5 +7,5 @@ Température : [23.5, 21.9, 21.1]
 Hygrométrie : [49, 53, 49] 
  
 distance à la pointe de l'anche : 3 
-nombre de point sur une largeur d'anche (suivant y): 9, pas horizontal suivant y : 8308 
+nombre de point sur une largeur d'anche (suivant y): 9, pas horizontal suivant y : 3069203 
 nombre de points suivant z : 3, pas horizontal suivant z : 2274

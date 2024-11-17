@@ -178,9 +178,8 @@ def modelisation_profile_de_raideur(position_y, position_z, Force, numero_anche 
         # Premier axe y
         axs1.set_xlabel('Coordonnée y (mm)', fontsize=16)
         axs1.set_ylabel('Raideur $k=F/z$ (N/mm)', fontsize=16)
-        axs1.plot(pos_y, pentes, '.', color='cornflowerblue', label='données expérimentales (pentes)')
-        axs1.plot(linspace_posy, np.polyval(coef, linspace_posy), linestyle='-', lw='2.5', color='darkblue',
-                label=f'z = {round(K0,3)}{round(K1,3)}(x{round(x0,3)})²')
+        axs1.plot(pos_y, pentes, '.', label='données expérimentales (pentes)')
+        axs1.plot(linspace_posy, np.polyval(coef, linspace_posy), linestyle='-', lw='2.5', label=f'z = {round(K0,3)}{round(K1,3)}(x{round(x0,3)})²')
         axs1.grid()
 
         # Création du second axe y
